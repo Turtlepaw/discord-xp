@@ -3,7 +3,7 @@
 // Definitions by: Nico Finkernagel <https://github.com/gruselhaus/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Client } from "discord.js";
+import { Client, Guild } from "discord.js";
 
 type User = {
   userID: string;
@@ -27,19 +27,19 @@ type LeaderboardUser = {
 
 declare module "discord-xp" {
   export default class DiscordXp {
-    static async setURL(dbURL: string): Promise<typeof import("mongoose")>;
-    static async createUser(userId: string, guildId: string): Promise<User>;
-    static async deleteUser(userId: string, guildId: string): Promise<User>;
-    static async deleteGuild(guildId: string): Promise<Guild>;
-    static async appendXp(userId: string, guildId: string, xp: number): Promise<boolean>;
-    static async appendLevel(userId: string, guildId: string, levels: number): Promise<User>;
-    static async setXp(userId: string, guildId: string, xp: number): Promise<User>;
-    static async setLevel(userId: string, guildId: string, level: number): Promise<User>;
-    static async fetch(userId: string, guildId: string, fetchPosition = false): Promise<User>;
-    static async subtractXp(userId: string, guildId: string, xp: number): Promise<User>;
-    static async subtractLevel(userId: string, guildId: string, level: number): Promise<User>;
-    static async fetchLeaderboard(guildId: String, limit: number): Promise<User[] | []>;
-    static async computeLeaderboard(client: Client, leaderboard: User[], fetchUsers = false): Promise<LeaderboardUser[] | []>;
+    static setURL(dbURL: string): Promise<typeof import("mongoose")>;
+    static createUser(userId: string, guildId: string): Promise<User>;
+    static deleteUser(userId: string, guildId: string): Promise<User>;
+    static deleteGuild(guildId: string): Promise<Guild>;
+    static appendXp(userId: string, guildId: string, xp: number): Promise<boolean>;
+    static appendLevel(userId: string, guildId: string, levels: number): Promise<User>;
+    static setXp(userId: string, guildId: string, xp: number): Promise<User>;
+    static setLevel(userId: string, guildId: string, level: number): Promise<User>;
+    static fetch(userId: string, guildId: string, fetchPosition?: boolean): Promise<User>;
+    static subtractXp(userId: string, guildId: string, xp: number): Promise<User>;
+    static subtractLevel(userId: string, guildId: string, level: number): Promise<User>;
+    static fetchLeaderboard(guildId: String, limit: number): Promise<User[] | []>;
+    static computeLeaderboard(client: Client, leaderboard: User[], fetchUsers?: boolean): Promise<LeaderboardUser[] | []>;
     static xpFor(targetLevel: number): number;
   }
 }
