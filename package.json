@@ -1,5 +1,5 @@
 {
-  "name": "discord-xp-ts",
+  "name": "discord-xp-typescript",
   "version": "1.1.16",
   "description": "A lightweight and easy to use economy framework for discord bots, uses MongoDB. (For typescript)",
   "main": "index.js",
@@ -27,7 +27,9 @@
     "mongodb",
     "discord-economy",
     "discord-eco",
-    "framework"
+    "framework",
+    "ts",
+    "typescript"
   ],
   "author": "MrAugu",
   "license": "MIT",
