@@ -321,3 +321,4 @@ class DiscordXp {
 }
 
 module.exports = DiscordXp;
+export default DiscordXp;

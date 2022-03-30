@@ -1,7 +1,7 @@
 {
-  "name": "discord-xp",
+  "name": "discord-xp-ts",
   "version": "1.1.16",
-  "description": "A lightweight and easy to use economy framework for discord bots, uses MongoDB.",
+  "description": "A lightweight and easy to use economy framework for discord bots, uses MongoDB. (For typescript)",
   "main": "index.js",
   "dependencies": {
     "mongoose": "^5.11.11"
