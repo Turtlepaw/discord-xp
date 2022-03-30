@@ -25,7 +25,7 @@ type LeaderboardUser = {
   discriminator: String | null;
 };
 
-declare module "discord-xp-ts" {
+declare module "discord-xp-typescript" {
   export default class DiscordXp {
     static setURL(dbURL: string): Promise<typeof import("mongoose")>;
     static createUser(userId: string, guildId: string): Promise<User>;
