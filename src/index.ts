@@ -225,7 +225,7 @@ export default class DiscordXp {
     return user;
   }
 
-  async fetchLeaderboard(guildId: string, limit: number) {
+  async fetchLeaderboard(guildId: string, limit: number = 10) {
     if (!guildId) throw new TypeError("A guild id was not provided.");
     if (!limit) throw new TypeError("A limit was not provided.");
 

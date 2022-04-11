@@ -35,18 +35,18 @@ declare module "discord-xp-typeorm" {
             guildID: string
         };
 
-        setURL(src: DataSource, RepositoryName?: string): DiscordXp;
+        setURL(src: DataSource): DiscordXp;
         createUser(userId: string, guildId: string): Promise<Levels>;
         deleteUser(userId: string, guildId: string): Promise<Levels>;
         appendXp(userId: string, guildId: string, xp: number): Promise<number>;
         appendLevel(userId: string, guildId: string, levels: number): Promise<Levels>;
         setXp(userId: string, guildId: string, xp: number): Promise<Levels>;
         setLevel(userId: string, guildId: string, level: number): Promise<Levels>;
-        fetch(userId: string, guildId: string, fetchPosition: boolean): Promise<guildUser>;
+        fetch(userId: string, guildId: string, fetchPosition?: boolean): Promise<guildUser>;
         subtractXp(userId: string, guildId: string, xp: number): Promise<Levels>;
         subtractLevel(userId: string, guildId: string, levels: number): Promise<Levels>;
-        fetchLeaderboard(guildId: string, limit: number): Promise<Levels[]>
-        computeLeaderboard(client: Client, leaderboard: Levels[], fetchUsers: boolean): Promise<guildUser[]>;
+        fetchLeaderboard(guildId: string, limit?: number): Promise<Levels[]>
+        computeLeaderboard(client: Client, leaderboard: Levels[], fetchUsers?: boolean): Promise<guildUser[]>;
         xpFor(targetLevel: number): number;
         deleteGuild(guildId: string): Promise<Levels>;
     }
