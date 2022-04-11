@@ -1,45 +1,53 @@
-// Type definitions for discord-xp v1.1.8
-// Project: https://github.com/MrAugu/discord-xp
-// Definitions by: Nico Finkernagel <https://github.com/gruselhaus/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Client } from "discord.js";
+import { DataSource, Repository } from "typeorm";
+import { Levels } from "./src/models/levels";
 
-import { Client, Guild } from "discord.js";
+declare module "discord-xp-typeorm" {
+    type leaderboardUser = {
+        guildID: string,
+        userID: string,
+        xp: number,
+        level: number,
+        position: number,
+        username: string,
+        discriminator: `#${number}`
+    };
 
-type User = {
-  userID: string;
-  guildID: string;
-  xp: number;
-  level: number;
-  lastUpdated: Date;
-  cleanXp: number;
-  cleanNextLevelXp: number;
-};
+    type guildUser = {
+        userID: string,
+        guildID: string,
+        xp: number,
+        cleanXp: number,
+        level: number,
+        position: number,
+        lastUpdated: Date,
+        cleanNextLevelXp: number
+    };
 
-type LeaderboardUser = {
-  guildID: string;
-  userID: string;
-  xp: number;
-  level: number;
-  position: number;
-  username: String | null;
-  discriminator: String | null;
-};
+    export default class DiscordXp {
+        public repository: Repository<Levels>;
+        private AppDataSource: DataSource;
 
-declare module "discord-xp-typescript" {
-  export default class DiscordXp {
-    static setURL(dbURL: string): Promise<typeof import("mongoose")>;
-    static createUser(userId: string, guildId: string): Promise<User>;
-    static deleteUser(userId: string, guildId: string): Promise<User>;
-    static deleteGuild(guildId: string): Promise<Guild>;
-    static appendXp(userId: string, guildId: string, xp: number): Promise<boolean>;
-    static appendLevel(userId: string, guildId: string, levels: number): Promise<User>;
-    static setXp(userId: string, guildId: string, xp: number): Promise<User>;
-    static setLevel(userId: string, guildId: string, level: number): Promise<User>;
-    static fetch(userId: string, guildId: string, fetchPosition?: boolean): Promise<User>;
-    static subtractXp(userId: string, guildId: string, xp: number): Promise<User>;
-    static subtractLevel(userId: string, guildId: string, level: number): Promise<User>;
-    static fetchLeaderboard(guildId: String, limit: number): Promise<User[] | []>;
-    static computeLeaderboard(client: Client, leaderboard: User[], fetchUsers?: boolean): Promise<LeaderboardUser[] | []>;
-    static xpFor(targetLevel: number): number;
-  }
+        private first(...items: Levels[]): Levels;
+        private save(...items: Promise<Levels>[]): Promise<Levels>;
+        private filter(userId: string, guildId: string): {
+            userID: string,
+            guildID: string
+        };
+
+        setURL(src: DataSource, RepositoryName?: string): DiscordXp;
+        createUser(userId: string, guildId: string): Promise<Levels>;
+        deleteUser(userId: string, guildId: string): Promise<Levels>;
+        appendXp(userId: string, guildId: string, xp: number): Promise<number>;
+        appendLevel(userId: string, guildId: string, levels: number): Promise<Levels>;
+        setXp(userId: string, guildId: string, xp: number): Promise<Levels>;
+        setLevel(userId: string, guildId: string, level: number): Promise<Levels>;
+        fetch(userId: string, guildId: string, fetchPosition: boolean): Promise<guildUser>;
+        subtractXp(userId: string, guildId: string, xp: number): Promise<Levels>;
+        subtractLevel(userId: string, guildId: string, levels: number): Promise<Levels>;
+        fetchLeaderboard(guildId: string, limit: number): Promise<Levels[]>
+        computeLeaderboard(client: Client, leaderboard: Levels[], fetchUsers: boolean): Promise<guildUser[]>;
+        xpFor(targetLevel: number): number;
+        deleteGuild(guildId: string): Promise<Levels>;
+    }
 }
