@@ -1,7 +1,7 @@
 {
   "name": "discord-xp-typeorm",
-  "version": "1.1.19",
-  "description": "A lightweight and easy to use economy framework for discord bots, uses typeorm SQLite. (For typescript)",
+  "version": "1.0.0",
+  "description": "A lightweight and easy to use economy framework for discord bots, uses typeorm. (For typescript)",
   "main": "./dist/index.js",
   "types": "./index.d.ts",
   "scripts": {
