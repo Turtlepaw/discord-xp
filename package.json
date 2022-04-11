@@ -41,10 +41,10 @@
     "ts",
     "typescript"
   ],
-  "author": "MrAugu (Turtlepaw)",
+  "author": "Turtlepaw",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MrAugu/discord-xp/issues"
+    "url": "https://github.com/turtlepaw/discord-xp/issues"
   },
-  "homepage": "https://github.com/MrAugu/discord-xp#readme"
+  "homepage": "https://github.com/turtlepaw/discord-xp#readme"
 }
