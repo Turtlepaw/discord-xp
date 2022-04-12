@@ -35,7 +35,7 @@ export default class DiscordXp {
     if (!guildId) throw new TypeError("A guild id was not provided.");
 
     const isUser = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (isUser) return false;
+    if (isUser) return isUser;
 
     const item = this.repository.create({
       guildID: guildId,
@@ -53,7 +53,7 @@ export default class DiscordXp {
     if (!guildId) throw new TypeError("A guild id was not provided.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return false;
+    if (!user) return user;
 
     await this.repository.delete({
       userID: userId,
@@ -102,7 +102,7 @@ export default class DiscordXp {
     if (!levels) throw new TypeError("An amount of levels was not provided.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return false;
+    if (!user) return user;
     
     await this.repository.update({
       userID: userId,
@@ -123,7 +123,7 @@ export default class DiscordXp {
     if (xp == 0 || !xp || isNaN(parseInt(xp))) throw new TypeError("An amount of xp was not provided/was invalid.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return false;
+    if (!user) return user;
 
     await this.repository.update({
       userID: userId,
@@ -143,7 +143,7 @@ export default class DiscordXp {
     if (!level) throw new TypeError("A level was not provided.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return false;
+    if (!user) return user;
 
     await this.repository.update(this.filter(userId, guildId), {
       level: level,
@@ -159,7 +159,7 @@ export default class DiscordXp {
     if (!guildId) throw new TypeError("A guild id was not provided.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return false;
+    if (!user) return user;
 
     let customUser = {
       userID: user.userID,
@@ -197,7 +197,7 @@ export default class DiscordXp {
     if (xp == 0 || !xp || isNaN(parseInt(xp))) throw new TypeError("An amount of xp was not provided/was invalid.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return false;
+    if (!user) return user;
 
     await this.repository.update(this.filter(userId, guildId), {
       xp: user.xp - xp,
@@ -214,7 +214,7 @@ export default class DiscordXp {
     if (!levels) throw new TypeError("An amount of levels was not provided.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return false;
+    if (!user) return user;
 
     await this.repository.update(this.filter(userId, guildId), {
       lastUpdated: Date.now(),
