@@ -7,7 +7,10 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
-    "test": "node ./test/tests.js"
+    "test": "node ./test/tests.js",
+    "publishpatch": "npm version patch && npm publish",
+    "prepare": "npm run build",
+    "prep": "npm run build"
   },
   "dependencies": {
     "@types/jest": "^27.4.1",
