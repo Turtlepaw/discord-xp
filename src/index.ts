@@ -4,7 +4,7 @@ import { Levels } from "./models/levels";
 import { Client } from "discord.js";
 
 export default class DiscordXp {
-  private AppDataSource: DataSource = null;
+  private AppDataSource: DataSource;
   public repository: Repository<Levels>;
 
   private async save(...items: Levels[]){
@@ -23,10 +23,10 @@ export default class DiscordXp {
     };
   }
 
-  setURL(src: DataSource) {
-    if (!src) throw new TypeError("A datasource was not provided.");
-    this.AppDataSource = src;
-    this.repository = src.getRepository(Levels);
+  constructor(source: DataSource) {
+    if (!source) throw new TypeError("A datasource was not provided.");
+    this.AppDataSource = source;
+    this.repository = source.getRepository(Levels);
     return this;
   }
 

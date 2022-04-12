@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
 import { DataSource, Repository } from "typeorm";
-import { Levels } from "./src/models/levels";
+import { Levels } from "./models/levels";
 
 declare module "discord-xp-typeorm" {
     type leaderboardUser = {

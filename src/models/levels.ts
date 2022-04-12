@@ -3,17 +3,17 @@ import { PrimaryColumn, Column, Entity } from "typeorm";
 @Entity()
 export class Levels {
     @PrimaryColumn()
-    guildID: string
+    guildID!: string;
 
     @Column()
-    userID: string
+    userID!: string;
 
     @Column()
-    xp: number
+    xp!: number;
 
     @Column()
-    level: number
+    level!: number;
 
     @Column()
-    lastUpdated: number
+    lastUpdated!: number;
 }
