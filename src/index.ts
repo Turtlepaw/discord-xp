@@ -7,16 +7,16 @@ export default class DiscordXp {
   private AppDataSource: DataSource;
   public repository: Repository<Levels>;
 
-  private async save(...items: Levels[]){
+  private async save(...items: Levels[]) {
     const res = await this.repository.save(items);
     return res[0];
   }
 
-  private async first(item: Promise<Levels[]>){
+  private async first(item: Promise<Levels[]>) {
     return (await item)[0];
   }
 
-  private filter(userId: string, guildId: string){
+  private filter(userId: string, guildId: string) {
     return {
       guildID: guildId,
       userID: userId
@@ -103,7 +103,7 @@ export default class DiscordXp {
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
     if (!user) return user;
-    
+
     await this.repository.update({
       userID: userId,
       guildID: guildId
@@ -154,7 +154,7 @@ export default class DiscordXp {
     return user;
   }
 
-  private parseUser(user: Levels, leaderboard?: Levels[]){    
+  private parseUser(user: Levels, leaderboard?: Levels[]) {
     const sortedLeaderboard = leaderboard.sort().reverse();
     const pos = leaderboard.findIndex(i => i.userID === user.userID) + 1;
 
@@ -170,7 +170,16 @@ export default class DiscordXp {
     }
   }
 
-  async fetch(userId: string, guildId: string, fetchPosition: boolean = false) {
+  async fetch(userId: string, guildId: string, fetchPosition: boolean = false): Promise<{
+    userID: string;
+    guildID: string;
+    xp: number;
+    cleanXp: any;
+    level: number;
+    position: any;
+    lastUpdated: Date;
+    cleanNextLevelXp: any;
+  }> {
     if (!userId) throw new TypeError("An user id was not provided.");
     if (!guildId) throw new TypeError("A guild id was not provided.");
 
@@ -198,11 +207,11 @@ export default class DiscordXp {
       customUser.position = leaderboard.findIndex(i => i.userID === userId) + 1;
     }
 
-    
+
     /* To be used with canvacord or displaying xp in a pretier fashion, with each level the cleanXp stats from 0 and goes until cleanNextLevelXp when user levels up and gets back to 0 then the cleanNextLevelXp is re-calculated */
     customUser.cleanXp = user.xp - this.xpFor(user.level);
     customUser.cleanNextLevelXp = this.xpFor(user.level + 1) - this.xpFor(user.level);
-    
+
     return customUser;
   }
 
@@ -304,7 +313,7 @@ export default class DiscordXp {
     return targetLevel * targetLevel * 100;
   }
 
-   async deleteGuild(guildId: string) {
+  async deleteGuild(guildId: string) {
     if (!guildId) throw new TypeError("A guild id was not provided.");
 
     const guild = await this.repository.findBy({ guildID: guildId });
