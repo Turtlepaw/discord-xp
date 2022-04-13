@@ -241,7 +241,15 @@ export default class DiscordXp {
     if (!leaderboard) throw new TypeError("A leaderboard id was not provided.");
     if (leaderboard.length < 1) return [];
 
-    const computedArray = [];
+    const computedArray: {
+      guildID: string;
+      userID: string;
+      xp: number;
+      level: number;
+      position: number;
+      username: string;
+      discriminator: string;
+    }[] = [];
 
     if (fetchUsers) {
       for (const key of leaderboard) {
