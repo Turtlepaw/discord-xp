@@ -154,12 +154,28 @@ export default class DiscordXp {
     return user;
   }
 
+  private parseUser(user: Levels, leaderboard?: Levels[]){    
+    const sortedLeaderboard = leaderboard.sort().reverse();
+    const pos = leaderboard.findIndex(i => i.userID === user.userID) + 1;
+
+    return {
+      userID: user.userID,
+      guildID: user.guildID,
+      xp: user.xp,
+      cleanXp: user.xp - this.xpFor(user.level),
+      level: user.level,
+      position: pos || null,
+      lastUpdated: new Date(user.lastUpdated),
+      cleanNextLevelXp: this.xpFor(user.level + 1) - this.xpFor(user.level)
+    }
+  }
+
   async fetch(userId: string, guildId: string, fetchPosition: boolean = false) {
     if (!userId) throw new TypeError("An user id was not provided.");
     if (!guildId) throw new TypeError("A guild id was not provided.");
 
     const user = await this.first(this.repository.findBy({ userID: userId, guildID: guildId }));
-    if (!user) return user;
+    if (!user) return this.parseUser(user);
 
     let customUser = {
       userID: user.userID,
